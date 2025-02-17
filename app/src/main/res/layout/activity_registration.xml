@@ -19,13 +19,25 @@
         android:layout_marginBottom="24dp"
         tools:ignore="HardcodedText" />
 
-    <!-- Name Field -->
+    <!-- Full Name Field -->
     <EditText
-        android:id="@+id/nameEditText"
+        android:id="@+id/fullnameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints=""
-        android:hint="Name"
+        android:hint="Full Name"
+        android:layout_marginBottom="16dp"
+        android:inputType="text"
+        android:minHeight="48dp"
+        tools:ignore="HardcodedText,VisualLintTextFieldSize" />
+
+    <!-- Username Field -->
+    <EditText
+        android:id="@+id/usernameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:hint="Username"
         android:layout_marginBottom="16dp"
         android:inputType="text"
         android:minHeight="48dp"
@@ -45,7 +57,7 @@
 
     <!-- Password Field -->
     <EditText
-        android:id="@+id/registrationPasswordEditText"
+        android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints=""
@@ -60,9 +72,9 @@
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ff00ff"
         android:text="Register"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
+        android:background="@color/purple_500"
         tools:ignore="HardcodedText,VisualLintButtonSize" />
 
 </LinearLayout>

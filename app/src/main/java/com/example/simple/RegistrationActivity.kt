@@ -14,29 +14,35 @@ class RegistrationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_registration) // Link to the XML layout
 
         // Find views by ID
-        val nameEditText = findViewById<EditText>(R.id.nameEditText)
+        val fullnameEditText = findViewById<EditText>(R.id.fullnameEditText)
+        val usernameEditText = findViewById<EditText>(R.id.usernameEditText)
         val emailEditText = findViewById<EditText>(R.id.emailEditText)
-        val passwordEditText = findViewById<EditText>(R.id.registrationPasswordEditText)
+        val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
         val registerButton = findViewById<Button>(R.id.registerButton)
 
         // Set click listener for the Register Button
         registerButton.setOnClickListener {
-            val name = nameEditText.text.toString()
-            val email = emailEditText.text.toString()
-            val password = passwordEditText.text.toString()
+            val fullname = fullnameEditText.text.toString().trim()
+            val username = usernameEditText.text.toString().trim()
+            val email = emailEditText.text.toString().trim()
+            val password = passwordEditText.text.toString().trim()
 
-            if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            if (fullname.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT).show()
-
-                // Navigate back to Login Page
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish() // Close RegistrationActivity so user can't go back to it using the back button
+                // Send signup request in a separate thread
+                Thread {
+                    val response = SignUpRequest.sendSignUpRequest(fullname, username, email, password)
+                    runOnUiThread {
+                        Toast.makeText(this, response, Toast.LENGTH_SHORT).show()
+                        if (response.contains("Sign Up Success")) {
+                            // Navigate to Login Page
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        }
+                    }
+                }.start()
             }
         }
     }
 }
-
-
